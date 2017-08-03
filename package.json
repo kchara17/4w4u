@@ -1,7 +1,6 @@
 {
   "name": "4w4u",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "restart": "pm2 startOrRestart ecosystem.config.js",
@@ -19,9 +18,13 @@
   },
   "homepage": "https://github.com/kchara17/4w4u#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "knex": "^0.13.0",
+    "mysql": "^2.14.1"
   },
   "devDependencies": {
     "pm2": "^2.6.1"
-  }
+  },
+  "description": ""
 }
