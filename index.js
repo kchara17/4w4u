@@ -33,6 +33,9 @@ app.get('/place/:id', (req, res) => {
       else res.sendStatus(401)
 	})
 })
+app.get('/place', (req, res) => {
+  res.send("HEY!")
+})
 app.listen(7555, () => {
   console.log('Server running on http://localhost:7555')
 })
