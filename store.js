@@ -26,6 +26,7 @@ module.exports = {
     return knex('Places').where({ id })
       .then(([Places]) => {
         if (!Places) return { success: false }
+		console.log("Success");
         return { success:true, rows: Places  }
       })
   }
