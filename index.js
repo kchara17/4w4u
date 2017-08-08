@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const store = require('./store')
 const app = express()
+var server = app.listen(5001);
 app.use(express.static('public'))
 app.use(bodyParser.json())
 /*app.post('/createUser', (req, res) => {
@@ -38,4 +39,10 @@ app.get('/place', (req, res) => {
 })
 app.listen(7555, () => {
   console.log('Server running on http://localhost:7555')
+})
+
+app.on('connection', function(socket) {
+  console.log("A new connection was made by a client.");
+  socket.setTimeout(30 * 1000); 
+  // 30 second timeout. Change this as you see fit.
 })
