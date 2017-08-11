@@ -22,13 +22,29 @@ module.exports = {
         return { success: hash === user.encrypted_password }
       })
   },*/
-  getPlace ({ id }) {
+  getPlaceById ({ id }) {
     return knex('Places').where({ id })
-      .then(([Places]) => {
-        if (!Places) return { success: false }
-		console.log("Success");
-        return { success:true, rows: Places  }
-      })
+    
+  },
+  
+  getPlaceByName ({ name }) {
+    return knex('Places').where('name','like', '%' + name + '%')
+      
+  },
+  
+  getPlaceByAddress ({ address }) {
+    return knex('Places').where('address', 'like', '%' + address + '%').debug()
+      
+  },
+  
+  getClosestPlaces ( { lat, lng, amount}) {
+	  console.log(lat + ',' + lng +',' + amount)
+	  return knex('Places')
+			.select(knex.raw('id, ( 3959 * acos( cos( radians(' + lat + ') ) * cos( radians( longitude ) ) * cos( radians( latitude ) - radians(' + lng +') ) + sin( radians(' + lat + ') ) * sin( radians( longitude )  ) ) ) as distance'))
+			.having('distance', '<',amount)
+			.limit(50).debug()
+			.orderBy('distance')
+	  
   }
 }
 function saltHashPassword ({

@@ -33,17 +33,70 @@ app.post('/login', (req, res) => {
       else res.sendStatus(401)
     })
 })*/
-app.get('/place/:id', (req, res) => {
+app.get('/place/id/:id', (req, res) => {
 	setTimeout(() => {
     res.send('done');
   }, 180000)
   store
-    .getPlace({
+    .getPlaceById({
 		id: req.params.id
 	})
-	.then(({success,rows}) => {
-	if (success) res.json(rows)
-      else res.sendStatus(401)
+	.then(function(rows) {
+		res.status(200).json(rows)
+	})
+	.catch(function(error) {
+		next(error)
+	})
+})
+
+app.get('/place/name/:name', (req, res) => {
+	setTimeout(() => {
+    res.send('done');
+  }, 180000)
+  store
+    .getPlaceByName({
+		name: req.params.name
+	})
+	.then(function(rows) {
+		res.status(200).json(rows)
+	})
+	.catch(function(error) {
+		next(error)
+	})
+})
+
+app.get('/place/address/:address', (req, res) => {
+	setTimeout(() => {
+    res.send('done');
+  }, 180000)
+  store
+    .getPlaceByAddress({
+		address: req.params.address
+	})
+	.then(function(rows) {
+		res.status(200).json(rows)
+	})
+	.catch(function(error) {
+		next(error)
+	})
+})
+
+app.get('/place/closest', (req, res) => {
+	setTimeout(() => {
+    res.send('done');
+  }, 180000)
+  console.log(req.query.lat + ',' + req.query.lng +',' + req.query.amount)
+  store
+    .getClosestPlaces({
+		lng: req.query.lat,
+		lat: req.query.lng,
+		amount: req.query.amount
+	})
+	.then(function(rows) {
+		res.status(200).json(rows)
+	})
+	.catch(function(error) {
+		next(error)
 	})
 })
 
